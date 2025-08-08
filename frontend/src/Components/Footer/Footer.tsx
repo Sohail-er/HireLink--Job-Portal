@@ -13,9 +13,9 @@ const Footer = () => {
             </div>
             <div className="text-sm text-white/90">Job portal with user profiles, skill updates, certifications, work experience and admin job postings.</div>
             <div className="flex gap-3 text-blue-400 [&>a]:bg-white/20 [&>a]:backdrop-blur-sm [&>a]:p-2 [&>a]:rounded-full [&>a]:cursor-pointer hover:[&>a]:bg-blue-500 hover:[&>a]:text-white [&>a]:transition-all [&>a]:duration-300">
-                <a href="https://www.instagram.com/code.marshal_/"><IconBrandInstagram /></a>
-                <a href="https://t.me/code_Marshal"><IconBrandTelegram /></a>
-                <a href="https://www.youtube.com/@Code.Marshal"><IconBrandYoutube /></a>
+                <a href=""><IconBrandInstagram /></a>
+                <a href=""><IconBrandTelegram /></a>
+                <a href=""><IconBrandYoutube /></a>
             </div>
         </div>
         {
