@@ -48,7 +48,7 @@ A full-stack job portal application built with Spring Boot (Backend) and React (
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Sohail-er/HireLink--Job-Portal.git
 cd HireLinkSpringboot
 ```
 
@@ -215,7 +215,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 If you encounter any issues or have questions:
-1. Check the [Issues](https://github.com/your-username/HireLink/issues) page
+1. Check the [Issues](https://github.com/Sohail-er/HireLink--Job-Portal/issues) page
 2. Create a new issue with detailed information
 3. Contact the development team
 
