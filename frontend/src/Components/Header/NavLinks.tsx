@@ -5,11 +5,12 @@ import { useSelector } from "react-redux";
 const NavLinks=()=>{
     
     const allLinks=[
-        {name:"Find Jobs",url:"find-jobs", roles: ["APPLICANT", "ADMIN"]},
-        {name:"Find Talent",url:"find-talent", roles: ["EMPLOYER", "ADMIN"]},
-        {name:"Post Job",url:"post-job/0", roles: ["EMPLOYER", "ADMIN"]},
-        {name:"Posted Jobs",url:"posted-jobs/0", roles: ["EMPLOYER", "ADMIN"]},
-        {name:"Job History", url:"job-history", roles: ["APPLICANT", "ADMIN"]}
+        {name:"Find Jobs",url:"find-jobs", roles: ["APPLICANT"]},
+        {name:"Find Talent",url:"find-talent", roles: ["EMPLOYER"]},
+        {name:"Post Job",url:"post-job/0", roles: ["EMPLOYER"]},
+        {name:"Posted Jobs",url:"posted-jobs/0", roles: ["EMPLOYER"]},
+        {name:"Job History", url:"job-history", roles: ["APPLICANT"]},
+        {name:"Admin Dashboard", url:"admin-dashboard", roles: ["ADMIN"]}
     ]
     const location =useLocation();
     const user = useSelector((state: any) => state.user);

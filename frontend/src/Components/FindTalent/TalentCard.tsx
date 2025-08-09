@@ -42,19 +42,19 @@ const TalentCard = (props: any) => {
         }).catch((err)=>console.log(err))
         else setProfile(props);
     }, [props])
-    return <div data-aos="fade-up" className="p-4 rounded-xl bg-black border border-purple-500 hover:shadow-lg hover:shadow-purple-400 hover:border-purple-400 transition duration-300 ease-in-out w-96 bs-mx:w-[48%] md-mx:w-full flex flex-col gap-3">
+    return <div data-aos="fade-up" className="p-4 rounded-xl bg-white/90 backdrop-blur-sm border border-purple-200 hover:shadow-lg hover:shadow-purple-200 hover:border-purple-300 transition duration-300 ease-in-out w-96 bs-mx:w-[48%] md-mx:w-full flex flex-col gap-3">
         <div className="flex justify-between">
             <div className="flex gap-2 items-center">
                 <div className="p-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full">
                     <Avatar className="rounded-full" size="lg" src={profile?.picture?`data:image/jpeg;base64,${profile?.picture}`:'/Avatar.png'} />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg text-white">{props?.name}</div>
-                    <div className="text-sm text-gray-300">{profile?.jobTitle} &bull; {profile?.company}</div>
+                    <div className="font-semibold text-lg text-gray-800">{props?.name}</div>
+                    <div className="text-sm text-gray-600">{profile?.jobTitle} &bull; {profile?.company}</div>
 
                 </div>
             </div>
-            <IconHeart className="cursor-pointer text-gray-400 hover:text-purple-400 transition-colors duration-300" stroke={1.5} />
+            <IconHeart className="cursor-pointer text-gray-400 hover:text-purple-600 transition-colors duration-300" stroke={1.5} />
         </div>
         <div className="flex gap-2 flex-wrap ">
             {
@@ -62,30 +62,30 @@ const TalentCard = (props: any) => {
             }
         </div>
         <div>
-            <Text className="!text-xs text-justify !text-gray-300" lineClamp={3}>{profile?.about}
+            <Text className="!text-xs text-justify !text-gray-600" lineClamp={3}>{profile?.about}
             </Text>
         </div>
-        <Divider color="gray.6" size="xs" />
+        <Divider color="gray.3" size="xs" />
         {
-            props.invited ? <div className="flex gap-1 text-purple-400 text-sm items-center">
+            props.invited ? <div className="flex gap-1 text-purple-600 text-sm items-center">
                 <IconCalendarMonth stroke={1.5} /> Interview: {formatInterviewTime(props.interviewTime)}
             </div> : <div className="flex justify-between">
-                <div className="font-medium text-purple-400">Exp: {profile?.totalExp?profile?.totalExp:1} Years</div>
-                <div className="text-xs flex gap-1 items-center text-gray-400">
+                <div className="font-medium text-purple-600">Exp: {profile?.totalExp?profile?.totalExp:1} Years</div>
+                <div className="text-xs flex gap-1 items-center text-gray-500">
                     <IconMapPin className="h-5 w-5" /> {profile?.location}
                 </div>
             </div>
         }
-        <Divider color="gray.6" size="xs" />
+        <Divider color="gray.3" size="xs" />
         <div className="flex [&>*]:w-1/2 [&>*]:p-1">
             {
                 !props.invited && <>
                     <Link to={`/talent-profile/${profile?.id}`}>
-                        <Button className="!border-purple-400 !text-purple-400 hover:!bg-purple-900/30" variant="outline" fullWidth>Profile</Button>
+                        <Button className="!border-purple-500 !text-purple-600 hover:!bg-purple-50" variant="outline" fullWidth>Profile</Button>
                     </Link>
 
                     <div>
-                        {props.posted ? <Button className="!bg-purple-900/30 !text-purple-400 hover:!bg-purple-800/40" variant="light" onClick={open} rightSection={<IconCalendarMonth className="w-5 h-5" />} fullWidth>Schedule</Button> : <Button className="!bg-purple-900/30 !text-purple-400 hover:!bg-purple-800/40" variant="light" fullWidth>Message</Button>}
+                        {props.posted ? <Button className="!bg-gradient-to-r !from-purple-500 !to-pink-500 !text-white hover:!from-purple-600 hover:!to-pink-600 !border-0" variant="filled" onClick={open} rightSection={<IconCalendarMonth className="w-5 h-5" />} fullWidth>Schedule</Button> : <Button className="!bg-gradient-to-r !from-purple-500 !to-pink-500 !text-white hover:!from-purple-600 hover:!to-pink-600 !border-0" variant="filled" fullWidth>Message</Button>}
                     </div>
                 </>
             }{
@@ -93,11 +93,11 @@ const TalentCard = (props: any) => {
                 props.invited && <>
                     <div>
 
-                        <Button onClick={()=>handleOffer("OFFERED")} className="!border-green-400 !text-green-400 hover:!bg-green-900/30" variant="outline" fullWidth>Accept</Button>
+                        <Button onClick={()=>handleOffer("OFFERED")} className="!bg-gradient-to-r !from-green-500 !to-emerald-500 !text-white hover:!from-green-600 hover:!to-emerald-600 !border-0" variant="filled" fullWidth>Accept</Button>
                     </div>
                     <div>
 
-                        <Button onClick={()=>handleOffer("REJECTED")} className="!bg-red-900/30 !text-red-400 hover:!bg-red-800/40" variant="light" fullWidth>Reject</Button>
+                        <Button onClick={()=>handleOffer("REJECTED")} className="!bg-gradient-to-r !from-red-500 !to-pink-500 !text-white hover:!from-red-600 hover:!to-pink-600 !border-0" variant="filled" fullWidth>Reject</Button>
                     </div>
                 </>
             }

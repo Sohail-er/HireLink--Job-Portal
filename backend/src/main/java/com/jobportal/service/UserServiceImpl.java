@@ -57,7 +57,8 @@ public class UserServiceImpl implements UserService {
 			throw new JobPortalException("USER_FOUND");
 		userDTO.setId(Utilities.getNextSequenceId("users"));
 		userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-		userDTO.setProfileId(profileService.createProfile(userDTO));		
+		userDTO.setProfileId(profileService.createProfile(userDTO));
+		userDTO.setActive(true); // Set default active status
 		User user = userRepository.save(userDTO.toEntity());
 		user.setPassword(null);
 		return user.toDTO();
@@ -69,23 +70,53 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
 		if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
 			throw new JobPortalException("INVALID_CREDENTIALS");
+		if (!user.getActive()) {
+			throw new JobPortalException("USER_DEACTIVATED");
+		}
 		user.setPassword(null);
 		return user.toDTO();
 	}
 
 	@Override
 	public Boolean sendOTP(String email) throws Exception {
-		User user=userRepository.findByEmail(email).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
-		MimeMessage mm = mailSender.createMimeMessage();
-		MimeMessageHelper message = new MimeMessageHelper(mm, true);
-		message.setTo(email);
-		message.setSubject("Your OTP Code");
-		String generatedOtp = Utilities.generateOTP();
-		OTP otp = new OTP(email, generatedOtp, LocalDateTime.now());
-		otpRepository.save(otp);
-		message.setText(Data.getMessageBody(generatedOtp, user.getName()), true);
-		mailSender.send(mm);
-		return true;
+		try {
+			User user = userRepository.findByEmail(email).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
+			
+			// Check if user is active
+			if (!user.getActive()) {
+				throw new JobPortalException("USER_DEACTIVATED");
+			}
+			
+			// Generate OTP
+			String generatedOtp = Utilities.generateOTP();
+			System.out.println("Generated OTP for " + email + ": " + generatedOtp); // For debugging
+			
+			// Save OTP to database
+			OTP otp = new OTP(email, generatedOtp, LocalDateTime.now());
+			otpRepository.save(otp);
+			
+			// Create email message
+			MimeMessage mm = mailSender.createMimeMessage();
+			MimeMessageHelper message = new MimeMessageHelper(mm, true);
+			message.setTo(email);
+			message.setSubject("Your HireLink OTP Code");
+			message.setText(Data.getMessageBody(generatedOtp, user.getName()), true);
+			
+			// Send email
+			mailSender.send(mm);
+			System.out.println("OTP email sent successfully to: " + email);
+			
+			return true;
+		} catch (JobPortalException e) {
+			System.err.println("OTP Error - User not found: " + email);
+			throw e;
+		} catch (MessagingException e) {
+			System.err.println("OTP Error - Email sending failed: " + e.getMessage());
+			throw new JobPortalException("EMAIL_SEND_FAILED");
+		} catch (Exception e) {
+			System.err.println("OTP Error - Unexpected error: " + e.getMessage());
+			throw new JobPortalException("OTP_SEND_FAILED");
+		}
 	}
 	
 
@@ -110,6 +141,12 @@ public class UserServiceImpl implements UserService {
 	public ResponseDTO changePassword(LoginDTO loginDTO) throws JobPortalException {
 		User user = userRepository.findByEmail(loginDTO.getEmail())
 				.orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
+		
+		// Check if user is active
+		if (!user.getActive()) {
+			throw new JobPortalException("USER_DEACTIVATED");
+		}
+		
 		user.setPassword(passwordEncoder.encode(loginDTO.getPassword()));
 		userRepository.save(user);
 		NotificationDTO noti=new NotificationDTO();

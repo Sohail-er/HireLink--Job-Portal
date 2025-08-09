@@ -12,7 +12,7 @@ const PostedJob = (props:any) => {
         <div className="text-2xl font-semibold mb-5">Jobs</div>
         <div>
             <Tabs variant="pills" autoContrast value={activeTab} onChange={setActiveTab}>
-                <Tabs.List className="[&_button[aria-selected='false']]:bg-mine-shaft-900 font-medium">
+                <Tabs.List className="[&_button[aria-selected='false']]:bg-white [&_button[aria-selected='false']]:border [&_button[aria-selected='false']]:border-purple-200 [&_button[aria-selected='true']]:bg-gradient-to-r [&_button[aria-selected='true']]:from-purple-500 [&_button[aria-selected='true']]:to-pink-500 [&_button[aria-selected='true']]:text-white font-medium">
                     <Tabs.Tab value="ACTIVE">Active [{props.jobList.filter((job:any)=>job?.jobStatus=="ACTIVE").length}]</Tabs.Tab>
                     <Tabs.Tab value="DRAFT">Drafts [{props.jobList.filter((job:any)=>job?.jobStatus=="DRAFT").length}]</Tabs.Tab>
                     <Tabs.Tab value="CLOSED">Closed [{props.jobList.filter((job:any)=>job?.jobStatus=="CLOSED").length}]</Tabs.Tab>

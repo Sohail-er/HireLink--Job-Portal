@@ -65,41 +65,41 @@ const Card = (props: any) => {
             setIsProcessing(false);
         }
     }
-    return <div data-aos="zoom-out" className="p-4 rounded-xl bg-mine-shaft-900   hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400  transition duration-300 ease-in-out w-72 flex flex-col gap-3">
+    return <div data-aos="zoom-out" className="p-4 rounded-xl bg-white/90 backdrop-blur-sm border border-purple-200 hover:shadow-lg hover:shadow-purple-200 hover:border-purple-300 transition duration-300 ease-in-out w-72 flex flex-col gap-3">
         <div className="flex justify-between">
             <div className="flex gap-2 items-center">
-                <div className="p-2 bg-mine-shaft-800 rounded-md">
+                <div className="p-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-md">
                     <img className="h-7" src={`/Icons/${props.company}.png`} alt="" />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <div className="font-semibold ">{props.jobTitle}</div>
-                    <div className="text-xs text-mine-shaft-300"><Link className="hover:text-mine-shaft-200" to="/company">{props.company}</Link> &bull; {props.applicants?props.applicants.length:0} Applicants</div>
+                    <div className="font-semibold text-gray-800">{props.jobTitle}</div>
+                    <div className="text-xs text-gray-600"><Link className="hover:text-purple-600 transition-colors duration-300" to="/company">{props.company}</Link> &bull; {props.applicants?props.applicants.length:0} Applicants</div>
                 </div>
             </div>
-            {profile.savedJobs?.includes(props.id) ? <IconBookmarkFilled onClick={handleSaveJob} className="cursor-pointer text-bright-sun-400 " stroke={1.5} /> : <IconBookmark onClick={handleSaveJob} className="cursor-pointer text-mine-shaft-300" stroke={1.5} />}
+            {profile.savedJobs?.includes(props.id) ? <IconBookmarkFilled onClick={handleSaveJob} className="cursor-pointer text-purple-600 " stroke={1.5} /> : <IconBookmark onClick={handleSaveJob} className="cursor-pointer hover:text-purple-600 text-gray-400 transition-colors duration-300" stroke={1.5} />}
         </div>
-        <div className="flex gap-2">
-            <div className="p-2 py-1 bg-mine-shaft-800 text-bright-sun-400 rounded-lg text-xs">{props.experience}</div>
-            <div className="p-2 py-1  bg-mine-shaft-800 text-bright-sun-400 rounded-lg text-xs">{props.jobType}</div>
-            <div className="p-2 py-1  bg-mine-shaft-800 text-bright-sun-400 rounded-lg text-xs">{props.location}</div>
+        <div className="flex gap-2 flex-wrap">
+            <div className="p-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-medium">{props.experience}</div>
+            <div className="p-2 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg text-xs font-medium">{props.jobType}</div>
+            <div className="p-2 py-1 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-lg text-xs font-medium">{props.location}</div>
         </div>
         <div>
-            <Text className="!text-xs text-justify !text-mine-shaft-300" lineClamp={3}>{props.about}
+            <Text className="!text-xs text-justify !text-gray-600" lineClamp={3}>{props.about}
             </Text>
         </div>
-        <Divider color="mineShaft.7" size="xs" />
+        <Divider color="gray.3" size="xs" />
         <div className="flex justify-between">
-            <div className="font-semibold text-mine-shaft-200">&#8377;{props.packageOffered} LPA</div>
-            <div className="text-xs flex gap-1 items-center text-mine-shaft-400">
+            <div className="font-semibold text-purple-600">&#8377;{props.packageOffered} LPA</div>
+            <div className="text-xs flex gap-1 items-center text-gray-500">
                 <IconClockHour3 className="h-5 w-5" stroke={1.5} /> {props.applied || props.interviewing? "Applied" : props.offered ? "Interviewed" : "Posted"} {timeAgo(props.postTime)}
             </div>
         </div>
-        {(props.offered || props.interviewing) && <Divider color="mineShaft.7" size="xs" />}
+        {(props.offered || props.interviewing) && <Divider color="gray.3" size="xs" />}
         {props.offered &&
         <div className="flex gap-2">
             <Button 
-                color="brightSun.4" 
-                variant="outline" 
+                className="!bg-gradient-to-r !from-green-500 !to-emerald-500 !text-white hover:!from-green-600 hover:!to-emerald-600 !border-0"
+                variant="filled" 
                 fullWidth 
                 loading={isProcessing}
                 onClick={() => handleOfferResponse('ACCEPTED')}
@@ -107,8 +107,8 @@ const Card = (props: any) => {
                 Accept
             </Button>
             <Button 
-                color="brightSun.4" 
-                variant="light" 
+                className="!bg-gradient-to-r !from-red-500 !to-pink-500 !text-white hover:!from-red-600 hover:!to-pink-600 !border-0"
+                variant="filled" 
                 fullWidth 
                 loading={isProcessing}
                 onClick={() => handleOfferResponse('REJECTED')}
@@ -117,11 +117,11 @@ const Card = (props: any) => {
             </Button>
         </div>
         }
-        {props.interviewing &&<div className="flex gap-1 text-sm">
-        <IconCalendarMonth className=" text-bright-sun-400 w-5 h-5" stroke={1.5} /> Sun, 25 August &bull; <span className="text-mine-shaft-400">10 AM - 11 AM</span>
+        {props.interviewing &&<div className="flex gap-1 text-sm text-purple-600">
+        <IconCalendarMonth className="w-5 h-5" stroke={1.5} /> Sun, 25 August &bull; <span className="text-gray-500">10 AM - 11 AM</span>
         </div>}
         <Link  to={`/jobs/${props.id}`}>
-        <Button color="brightSun.4" variant="light" fullWidth>View Job</Button>
+        <Button fullWidth className="!bg-gradient-to-r !from-purple-500 !to-pink-500 !text-white hover:!from-purple-600 hover:!to-pink-600 !border-0" variant="filled">View Job</Button>
         </Link>
     </div>
 }

@@ -24,9 +24,10 @@ public class User {
 	private String password;
 	private AccountType accountType;
 	private Long profileId;
+	private Boolean active = true; // Default to active
 
 	public UserDTO toDTO() {
-		return new UserDTO(this.id, this.name, this.email, this.password, this.accountType, this.profileId);
+		return new UserDTO(this.id, this.name, this.email, this.password, this.accountType, this.profileId, this.active);
 	}
 
 }

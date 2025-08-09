@@ -1,18 +1,46 @@
 import { IconAnchor, IconBrandFacebook, IconBrandInstagram, IconBrandTelegram, IconBrandX, IconBrandYoutube } from "@tabler/icons-react";
 import { footerLinks } from "../../Data/Data";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Divider } from "@mantine/core";
 
 const Footer = () => {
     const location=useLocation();
-    return location.pathname!='/signup' && location.pathname!='/login'?<div className="flex flex-col gap-2"><div className="pt-20 pb-5 bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 p-4  flex gap-8 justify-around flex-wrap">
+    
+    const getPageLink = (linkText: string) => {
+        switch(linkText) {
+            case "About Us":
+                return "/about-us";
+            case "Find Job":
+                return "/find-jobs";
+            case "Find Company":
+                return "#";
+            case "Find Employee":
+                return "/find-talent";
+            case "Contact Us":
+                return "#";
+            case "Privacy Policy":
+                return "#";
+            case "Terms & Conditions":
+                return "#";
+            case "Help & Support":
+                return "#";
+            case "Feedback":
+                return "#";
+            case "FAQs":
+                return "#";
+            default:
+                return "#";
+        }
+    };
+    
+    return location.pathname!='/signup' && location.pathname!='/login'?<div className="flex flex-col gap-0"><div className="pt-16 pb-8 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600 p-8 flex gap-8 justify-around flex-wrap">
         <div data-aos="fade-up"  data-aos-offset="0"  className="w-1/4 sm-mx:w-1/3   xs-mx:w-1/2 xsm-mx:w-full flex flex-col gap-4">
-            <div className="flex gap-1 items-center text-blue-400">
-                <IconAnchor className="h-6 w-6" stroke={2.5} />
-                <div className="text-xl font-semibold">HireLink</div>
+            <div className="flex gap-2 items-center text-slate-100">
+                <IconAnchor className="h-7 w-7" stroke={2} />
+                <div className="text-2xl font-bold">HireLink</div>
             </div>
-            <div className="text-sm text-white/90">Job portal with user profiles, skill updates, certifications, work experience and admin job postings.</div>
-            <div className="flex gap-3 text-blue-400 [&>a]:bg-white/20 [&>a]:backdrop-blur-sm [&>a]:p-2 [&>a]:rounded-full [&>a]:cursor-pointer hover:[&>a]:bg-blue-500 hover:[&>a]:text-white [&>a]:transition-all [&>a]:duration-300">
+            <div className="text-sm text-slate-300 leading-relaxed">Job portal with user profiles, skill updates, certifications, work experience and admin job postings.</div>
+            <div className="flex gap-3 text-slate-300 [&>a]:bg-slate-600/40 [&>a]:backdrop-blur-sm [&>a]:p-2.5 [&>a]:rounded-full [&>a]:cursor-pointer hover:[&>a]:bg-slate-500 hover:[&>a]:text-white hover:[&>a]:scale-110 [&>a]:transition-all [&>a]:duration-300">
                 <a href=""><IconBrandInstagram /></a>
                 <a href=""><IconBrandTelegram /></a>
                 <a href=""><IconBrandYoutube /></a>
@@ -20,16 +48,21 @@ const Footer = () => {
         </div>
         {
             footerLinks.map((item, index) => <div  data-aos-offset="0"  data-aos="fade-up" key={index}>
-                <div className="text-lg font-semibold mb-4 text-blue-300">{item.title}</div>
+                <div className="text-lg font-semibold mb-4 text-slate-100">{item.title}</div>
                 {
-                    item.links.map((link, index) => <div key={index} className="text-white/80 text-sm hover:text-blue-300 cursor-pointer mb-1 hover:translate-x-2 transition duration-300 ease-in-out">{link}</div>)
+                    item.links.map((link, linkIndex) => 
+                        getPageLink(link) !== "#" ? 
+                        <Link key={linkIndex} to={getPageLink(link)} className="block text-slate-300 text-sm hover:text-slate-100 cursor-pointer mb-2 hover:translate-x-1 transition duration-300 ease-in-out">{link}</Link>
+                        :
+                        <div key={linkIndex} className="text-slate-300 text-sm hover:text-slate-100 cursor-pointer mb-2 hover:translate-x-1 transition duration-300 ease-in-out">{link}</div>
+                    )
                 }
             </div>)
         }
     </div>
-    <Divider/>
-    <div data-aos="flip-left"  data-aos-offset="0" className="font-medium text-center p-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-        Designed & Developed By <a className="text-blue-300 hover:text-blue-100 hover:underline font-semibold transition-colors duration-300" href="https://github.com/Sohail-er/HireLink--Job-Portal">Team 5-CDAC Mumbai</a>
+    <Divider className="border-slate-600"/>
+    <div data-aos="flip-left"  data-aos-offset="0" className="font-medium text-center p-4 bg-slate-900 text-slate-300">
+        Designed & Developed By <a className="text-slate-200 hover:text-slate-100 hover:underline font-semibold transition-colors duration-300" href="https://github.com/Sohail-er/HireLink--Job-Portal">Team 5-CDAC Mumbai</a>
     </div>
     </div>:<></>
 }

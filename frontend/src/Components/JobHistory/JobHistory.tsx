@@ -45,7 +45,7 @@ setShowList(jobList.filter((job:any)=>profile?.savedJobs?.includes(job.id)));
         <div className="text-2xl font-semibold mb-5">Job History</div>
         <div>
             <Tabs  value={activeTab} onChange={handleTabChange} radius="lg" autoContrast variant="outline">
-                <Tabs.List className="font-semibold [&_button[data-active='true']]:!border-b-mine-shaft-950 [&_button]:!text-xl sm-mx:[&_button]:!text-lg  xs-mx:[&_button]:!text-base xsm-mx:[&_button]:!text-sm xs-mx:[&_button]:!px-1.5 xs-mx:[&_button]:!py-2 mb-5 [&_button[data-active='true']]:text-bright-sun-400 xs-mx:font-medium">
+                <Tabs.List className="font-semibold [&_button[data-active='true']]:!border-b-purple-500 [&_button]:!text-xl sm-mx:[&_button]:!text-lg  xs-mx:[&_button]:!text-base xsm-mx:[&_button]:!text-sm xs-mx:[&_button]:!px-1.5 xs-mx:[&_button]:!py-2 mb-5 [&_button[data-active='true']]:text-purple-600 xs-mx:font-medium">
                     <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
                     <Tabs.Tab value="SAVED"> Saved</Tabs.Tab>
                     <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>
@@ -54,7 +54,7 @@ setShowList(jobList.filter((job:any)=>profile?.savedJobs?.includes(job.id)));
                 <Tabs.Panel value={activeTab} className="[&>div]:w-full">
                     <div className="flex mt-10 flex-wrap gap-5">
                         {
-                            showList.length>0?showList.map((item:any, index:any)=> <Card key={index} {...item} {...{ [activeTab.toLowerCase()]: true }} />):<div className="text-lg font-medium">Nothing to show..</div>
+                            showList.length>0?showList.map((item:any, index:any)=> <Card key={index} {...item} {...{ [activeTab.toLowerCase()]: true }} />):<div className="text-lg font-medium text-gray-500">Nothing to show..</div>
                         }
                     </div>
                 </Tabs.Panel>

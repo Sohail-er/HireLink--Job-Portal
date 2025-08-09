@@ -1,12 +1,9 @@
-import { Menu, rem, Avatar, Switch } from '@mantine/core';
+import { Menu, rem, Avatar } from '@mantine/core';
 import {
     IconMessageCircle,
     IconLogout2,
     IconUserCircle,
     IconFileText,
-    IconSun,
-    IconMoonStars,
-    IconMoon,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +15,6 @@ const ProfileMenu = () => {
     const user=useSelector((state:any)=>state.user);
     const profile=useSelector((state:any)=>state.profile);
     const [opened, setOpened] = useState(false);
-    const [checked, setChecked] = useState(false);
     const dispatch = useDispatch();
     const handleLogout=()=>{
         
@@ -34,37 +30,23 @@ const ProfileMenu = () => {
             </Menu.Target>
 
             <Menu.Dropdown onChange={()=>setOpened(true)}>
-                <Link to="/profile">
-                <Menu.Item  leftSection={<IconUserCircle style={{ width: rem(14), height: rem(14) }} />}>
-                    Profile
-                </Menu.Item>
-                </Link>
-                <Menu.Item leftSection={<IconMessageCircle style={{ width: rem(14), height: rem(14) }} />}>
-                    Messages
-                </Menu.Item>
-                <Menu.Item leftSection={<IconFileText style={{ width: rem(14), height: rem(14) }} />}>
-                    Resume
-                </Menu.Item>
-                <Menu.Item
-                    leftSection={<IconMoon style={{ width: rem(14), height: rem(14) }} />}
-                    rightSection={
-                        <Switch size="sm" color="dark" className='cursor-pointer'
-                            onLabel={<IconSun
-                                style={{ width: rem(14), height: rem(14) }}
-                                stroke={2.5}
-                                color="yellow"
-                            />} offLabel={<IconMoonStars
-                                style={{ width: rem(14), height: rem(14) }}
-                                stroke={2.5}
-                                color="cyan"
-                            />}
-                            checked={checked}
-                            onChange={(event) => setChecked(event.currentTarget.checked)}
-                        />
-                    }
-                >
-                    Dark Mode
-                </Menu.Item>
+                {user.accountType !== 'ADMIN' && (
+                    <Link to="/profile">
+                    <Menu.Item  leftSection={<IconUserCircle style={{ width: rem(14), height: rem(14) }} />}>
+                        Profile
+                    </Menu.Item>
+                    </Link>
+                )}
+                {user.accountType !== 'ADMIN' && (
+                    <Menu.Item leftSection={<IconMessageCircle style={{ width: rem(14), height: rem(14) }} />}>
+                        Messages
+                    </Menu.Item>
+                )}
+                {user.accountType !== 'ADMIN' && (
+                    <Menu.Item leftSection={<IconFileText style={{ width: rem(14), height: rem(14) }} />}>
+                        Resume
+                    </Menu.Item>
+                )}
 
                 <Menu.Divider />
 
